@@ -13,6 +13,16 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'request' => [
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
+        ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            'db' => 'db',  // 数据库连接的应用组件ID，默认为'db'.
+            'sessionTable' => 'uc_session', // session 数据表名，默认为'session'.
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -27,7 +37,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'member/error',
         ],
 //        'urlManager' => [
 //            'enablePrettyUrl' => true,
@@ -36,11 +46,7 @@ return [
 //                ['class' => 'yii\rest\UrlRule', 'controller' => ['section','comment','user']],
 //            ],
 //        ],
-        'request' => [
-            'parsers' => [
-                'application/json' => 'yii\web\JsonParser',
-            ]
-        ],
+
     ],
     'params' => $params,
 ];

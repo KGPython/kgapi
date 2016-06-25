@@ -42,18 +42,34 @@ class MemberController extends Controller
     public function actionLogin($username,$password)
     {
         $session = Yii::$app->session;
-        if (!$session->isActive){
-            $session->open();
-        }
+        $session->setId(md5("127.0.0.1"));
+        
         $msg = Array();
         //会员账号信息
         $member = Members::find()->where(['username'=>$username])->one();
         if($member != null){
             $pwd = md5(md5($password).$member->salt);
             if($pwd == $member->password){
+                //角色
+                $role_list = MemberRole::find()->where(['member_id'=>$member->uid])->all();
+                $role_ids = [];
+                if(count($role_list)>0){
+                    foreach($role_list as $role){
+                        $role_ids[] = $role['role_id'];
+                    }
+                }
+                //查询员工菜单
+                $role_privilege = RolePrivilege::find()->where(['role_id'=>$role_ids])->all();
+                $privilege_ids = [];
+                if(count($role_privilege)>0){
+                    foreach($role_privilege as $rp){
+                        $privilege_ids[] = $rp['privilege_id'];
+                    }
+                }
                 //查询会员类型
                 $memauxiliary = MemberAuxiliary::find()->where(['member_id'=>$member->uid])->one();
 
+                $session->set("privileges",$privilege_ids);
                 $session->set("member",$member);
                 $session->set("memauxiliary",$memauxiliary);
 

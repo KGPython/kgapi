@@ -16,29 +16,11 @@ class PrivilegeController extends Controller
 {
      public function actionMenu($member_id,$member_type){
          $session = Yii::$app->session;
-         if (!$session->isActive){
-             $session->open();
-         }
-         //角色
-         $role_list = MemberRole::find()->where(['member_id'=>$member_id])->all();
-         $role_ids = [];
-         if(count($role_list)>0){
-             foreach($role_list as $role){
-                 $role_ids[] = $role['role_id'];
-             }
-         }
-         //查询员工菜单
-         $role_privilege = RolePrivilege::find()->where(['role_id'=>$role_ids])->all();
-         $privilege_ids = [];
-         if(count($role_privilege)>0){
-             foreach($role_privilege as $rp){
-                 $privilege_ids[] = $rp['privilege_id'];
-             }
-         }
-         $privileges = Privilege::find()->where(['id'=>$privilege_ids,'pid'=>0])->all();
+         $session->readSession("121");
 
-         $session->set("privilege_ids",$privilege_ids);
-
+         $privileges = Privilege::find()
+                       ->where(['id'=>$session->get("privileges"),'pid'=>0,'privilegetype'=>0,'state'=>1])
+                       ->select(['id','name','title','url','pid'])->all();
          $result = Array('data'=>$privileges);
         //集团员工
         if($member_type == 2){
@@ -55,13 +37,15 @@ class PrivilegeController extends Controller
 
     public function actionSubmenu($pid,$member_id,$member_type){
         $session = Yii::$app->session;
-        if (!$session->isActive){
-            $session->open();
+        $privilege_ids = $session->get("privileges");
+        if(!$privilege_ids){
+            $privilege_ids = [];
         }
-        $privilege_ids = $session->get("privilege_ids");
-
         if($member_type == 2){
-            $privileges = Privilege::find()->where(['id'=>$privilege_ids,'pid'=>$pid])->all();
+            $privileges = Privilege::find()
+                          ->where(['id'=>$privilege_ids,'pid'=>$pid,'privilegetype'=>0,'state'=>1])
+                          ->select(['id','name','title','url','pid'])->all();
+
             $menu = Array('data'=>$privileges);
             return Json::encode($menu);
         }else{

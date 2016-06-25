@@ -25,21 +25,21 @@ AppAsset::register($this);
     <div class="wrap">
         <?php
             NavBar::begin([
-                'brandLabel' => 'My Company',
+                'brandLabel' => '宽广APP管理后台',
                 'brandUrl' => Yii::$app->homeUrl,
                 'options' => [
                     'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
+                ['label' => '主页', 'url' => ['/member/index']],
             ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => '登录', 'url' => ['/member/login']];
             } else {
                 $menuItems[] = [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
+                    'label' => '登出 (' . Yii::$app->user->identity->username . ')',
+                    'url' => ['/member/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
             }
@@ -60,8 +60,8 @@ AppAsset::register($this);
 
     <footer class="footer">
         <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; 宽广集团信息中心 <?= date('Y') ?></p>
+        <p class="pull-right">Powered by <a href="http://www.ikuanguang.com/" rel="external">爱宽广</a></p>
         </div>
     </footer>
 

@@ -31,7 +31,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'member/error',
         ],
 //        'urlManager' => [
 //            'class' => 'yii\web\UrlManager',
@@ -39,7 +39,7 @@ return [
 //            'enableStrictParsing' => false,
 //            'showScriptName' => false,
 //            'rules' => [
-//                ['class' => 'yii\rest\UrlRule', 'controller' => ['section','comment','user','site']],
+//                ['class' => 'yii\rest\UrlRule', 'controller' => ['section','comment','user','member']],
 //            ],
 //        ],
 

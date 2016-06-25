@@ -33,17 +33,17 @@ AppAsset::register($this);
                 ],
             ]);
             $menuItems = [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                ['label' => 'Home', 'url' => ['/member/index']],
+                ['label' => 'About', 'url' => ['/member/about']],
+                ['label' => 'Contact', 'url' => ['/member/contact']],
             ];
             if (Yii::$app->user->isGuest) {
-                $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+                $menuItems[] = ['label' => 'Signup', 'url' => ['/member/signup']];
+                $menuItems[] = ['label' => 'Login', 'url' => ['/member/login']];
             } else {
                 $menuItems[] = [
                     'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
+                    'url' => ['/member/logout'],
                     'linkOptions' => ['data-method' => 'post']
                 ];
             }
