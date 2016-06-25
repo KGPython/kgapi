@@ -23,9 +23,9 @@ use yii\base\InvalidRouteException;
 class Application extends \yii\base\Application
 {
     /**
-     * @var string the default route of this application. Defaults to 'site'.
+     * @var string the default route of this application. Defaults to 'member'.
      */
-    public $defaultRoute = 'site';
+    public $defaultRoute = 'member';
     /**
      * @var array the configuration specifying a controller action which should handle
      * all user requests. This is mainly used when the application is in maintenance mode

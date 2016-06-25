@@ -14,7 +14,7 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
 /**
- * Breadcrumbs displays a list of links indicating the position of the current page in the whole site hierarchy.
+ * Breadcrumbs displays a list of links indicating the position of the current page in the whole member hierarchy.
  *
  * For example, breadcrumbs like "Home / Sample Post / Edit" means the user is viewing an edit page
  * for the "Sample Post". He can click on "Sample Post" to view that page, or he can click on "Home"

@@ -64,25 +64,34 @@ class Memcontent extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'uid' => 'Uid',
-            'idc_name' => 'Idc Name',
-            'idc_sex' => 'Idc Sex',
-            'idc_nation' => 'Idc Nation',
-            'idc_birth' => 'Idc Birth',
-            'idc_address' => 'Idc Address',
-            'idc_id' => 'Idc ID',
-            'idc_start' => 'Idc Start',
-            'idc_end' => 'Idc End',
-            'idc_dep' => 'Idc Dep',
-            'phonenumber' => 'Phonenumber',
-            'mem_number' => 'Mem Number',
-            's_id' => 'S ID',
-            'r_id' => 'R ID',
-            'u_id' => 'U ID',
-            'inputtime' => 'Inputtime',
-            'registration' => 'Registration',
-            'addtime' => 'Addtime',
-            'id' => 'ID',
+            'uid' => Yii::t('api', '会员ID'),
+            'idc_name' => Yii::t('api', '姓名'),
+            'idc_sex' => Yii::t('api', '性别'),
+            'idc_nation' => Yii::t('api', '民族'),
+            'idc_birth' => Yii::t('api', '出生日期'),
+            'idc_address' => Yii::t('api', '住址'),
+            'idc_id' => Yii::t('api', '身份证号'),
+            'idc_start' => Yii::t('api', '证件起始时间'),
+            'idc_end' => Yii::t('api', '证件失效时间'),
+            'idc_dep' => Yii::t('api', '签发机构'),
+            'phonenumber' => Yii::t('api', '会员手机号'),
+            'mem_number' => Yii::t('api', '会员卡号'),
+            's_id' => Yii::t('api', '门店'),
+            'r_id' => Yii::t('api', 'R ID'),
+            'u_id' => Yii::t('api', 'U ID'),
+            'inputtime' => Yii::t('api', '数据录入时间'),
+            'registration' => Yii::t('api', '注册时间'),
+            'addtime' => Yii::t('api', '创建时间'),
+            'id' => Yii::t('api', 'ID'),
         ];
+    }
+
+    /**
+     * @inheritdoc
+     * @return MemcontentQuery the active query used by this AR class.
+     */
+    public static function find()
+    {
+        return new MemcontentQuery(get_called_class());
     }
 }

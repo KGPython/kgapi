@@ -17,7 +17,7 @@ return [
         ],
         'mssql' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mssql:host=192.168.250.226;dbname=myshopcmcard',
+            'dsn' => 'sqlsrv:Server=192.168.250.226;Database=myshopcmcard', 
             'username' => 'eaa',
             'password' => 'KG20131226#',
             'charset' => 'utf8',

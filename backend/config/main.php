@@ -27,7 +27,7 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'member/error',
         ],
 //        'urlManager' => [
 //            'class' => 'yii\web\UrlManager',

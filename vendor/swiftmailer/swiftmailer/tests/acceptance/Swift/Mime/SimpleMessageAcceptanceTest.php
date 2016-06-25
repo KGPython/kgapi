@@ -416,7 +416,7 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
         $message->setTo(array(
             'mark@swiftmailer.org', 'chris@swiftmailer.org' => 'Chris Corbyn',
             ));
-        $message->setCc('john@some-site.com');
+        $message->setCc('john@some-member.com');
         $id = $message->getId();
         $date = $message->getDate();
         $this->assertEquals(
@@ -426,7 +426,7 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'From: Chris <chris.corbyn@swiftmailer.org>'."\r\n".
             'Reply-To: Myself <chris@w3style.co.uk>, Me <my.other@address.com>'."\r\n".
             'To: mark@swiftmailer.org, Chris Corbyn <chris@swiftmailer.org>'."\r\n".
-            'Cc: john@some-site.com'."\r\n".
+            'Cc: john@some-member.com'."\r\n".
             'MIME-Version: 1.0'."\r\n".
             'Content-Type: text/plain'."\r\n".
             'Content-Transfer-Encoding: quoted-printable'."\r\n",
@@ -447,8 +447,8 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'mark@swiftmailer.org', 'chris@swiftmailer.org' => 'Chris Corbyn',
             ));
         $message->setCc(array(
-            'john@some-site.com' => 'John West',
-            'fred@another-site.co.uk' => 'Big Fred',
+            'john@some-member.com' => 'John West',
+            'fred@another-member.co.uk' => 'Big Fred',
             ));
         $id = $message->getId();
         $date = $message->getDate();
@@ -459,7 +459,7 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'From: Chris <chris.corbyn@swiftmailer.org>'."\r\n".
             'Reply-To: Myself <chris@w3style.co.uk>, Me <my.other@address.com>'."\r\n".
             'To: mark@swiftmailer.org, Chris Corbyn <chris@swiftmailer.org>'."\r\n".
-            'Cc: John West <john@some-site.com>, Big Fred <fred@another-site.co.uk>'."\r\n".
+            'Cc: John West <john@some-member.com>, Big Fred <fred@another-member.co.uk>'."\r\n".
             'MIME-Version: 1.0'."\r\n".
             'Content-Type: text/plain'."\r\n".
             'Content-Transfer-Encoding: quoted-printable'."\r\n",
@@ -482,8 +482,8 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'mark@swiftmailer.org', 'chris@swiftmailer.org' => 'Chris Corbyn',
             ));
         $message->setCc(array(
-            'john@some-site.com' => 'John West',
-            'fred@another-site.co.uk' => 'Big Fred',
+            'john@some-member.com' => 'John West',
+            'fred@another-member.co.uk' => 'Big Fred',
             ));
         $message->setBcc('x@alphabet.tld');
         $id = $message->getId();
@@ -495,7 +495,7 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'From: Chris <chris.corbyn@swiftmailer.org>'."\r\n".
             'Reply-To: Myself <chris@w3style.co.uk>, Me <my.other@address.com>'."\r\n".
             'To: mark@swiftmailer.org, Chris Corbyn <chris@swiftmailer.org>'."\r\n".
-            'Cc: John West <john@some-site.com>, Big Fred <fred@another-site.co.uk>'."\r\n".
+            'Cc: John West <john@some-member.com>, Big Fred <fred@another-member.co.uk>'."\r\n".
             'Bcc: x@alphabet.tld'."\r\n".
             'MIME-Version: 1.0'."\r\n".
             'Content-Type: text/plain'."\r\n".
@@ -519,8 +519,8 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'mark@swiftmailer.org', 'chris@swiftmailer.org' => 'Chris Corbyn',
             ));
         $message->setCc(array(
-            'john@some-site.com' => 'John West',
-            'fred@another-site.co.uk' => 'Big Fred',
+            'john@some-member.com' => 'John West',
+            'fred@another-member.co.uk' => 'Big Fred',
             ));
         $message->setBcc(array('x@alphabet.tld', 'a@alphabet.tld' => 'A'));
         $id = $message->getId();
@@ -532,7 +532,7 @@ class Swift_Mime_SimpleMessageAcceptanceTest extends \PHPUnit_Framework_TestCase
             'From: Chris <chris.corbyn@swiftmailer.org>'."\r\n".
             'Reply-To: Myself <chris@w3style.co.uk>, Me <my.other@address.com>'."\r\n".
             'To: mark@swiftmailer.org, Chris Corbyn <chris@swiftmailer.org>'."\r\n".
-            'Cc: John West <john@some-site.com>, Big Fred <fred@another-site.co.uk>'."\r\n".
+            'Cc: John West <john@some-member.com>, Big Fred <fred@another-member.co.uk>'."\r\n".
             'Bcc: x@alphabet.tld, A <a@alphabet.tld>'."\r\n".
             'MIME-Version: 1.0'."\r\n".
             'Content-Type: text/plain'."\r\n".

@@ -24,8 +24,8 @@ use yii\helpers\ArrayHelper;
  * NavBar::begin(['brandLabel' => 'NavBar Test']);
  * echo Nav::widget([
  *     'items' => [
- *         ['label' => 'Home', 'url' => ['/site/index']],
- *         ['label' => 'About', 'url' => ['/site/about']],
+ *         ['label' => 'Home', 'url' => ['/member/index']],
+ *         ['label' => 'About', 'url' => ['/member/about']],
  *     ],
  *     'options' => ['class' => 'navbar-nav'],
  * ]);

@@ -19,7 +19,7 @@ use yii\di\Instance;
  * ```
  * 'as access' => [
  *     'class' => 'mdm\admin\components\AccessControl',
- *     'allowActions' => ['site/login', 'site/error']
+ *     'allowActions' => ['member/login', 'member/error']
  * ]
  * ```
  *

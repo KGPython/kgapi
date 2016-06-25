@@ -85,12 +85,12 @@ class User extends Component
      * the name-value pairs are GET parameters used to construct the login URL. For example,
      *
      * ```php
-     * ['site/login', 'ref' => 1]
+     * ['member/login', 'ref' => 1]
      * ```
      *
      * If this property is null, a 403 HTTP exception will be raised when [[loginRequired()]] is called.
      */
-    public $loginUrl = ['site/login'];
+    public $loginUrl = ['member/login'];
     /**
      * @var array the configuration of the identity cookie. This property is used only when [[enableAutoLogin]] is true.
      * @see Cookie
@@ -114,7 +114,7 @@ class User extends Component
      * This property is effective only when [[enableAutoLogin]] is true.
      * When this is false, the identity cookie will expire after the specified duration since the user
      * is initially logged in. When this is true, the identity cookie will expire after the specified duration
-     * since the user visits the site the last time.
+     * since the user visits the member the last time.
      * @see enableAutoLogin
      */
     public $autoRenewCookie = true;

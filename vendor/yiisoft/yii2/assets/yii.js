@@ -130,7 +130,7 @@ yii = (function ($) {
          * use yii\helpers\Html;
          * use yii\helpers\Json;
          *
-         * echo Html::a('submit', ['site/foobar'], [
+         * echo Html::a('submit', ['member/foobar'], [
          *     'data' => [
          *         'method' => 'post',
          *         'params' => [

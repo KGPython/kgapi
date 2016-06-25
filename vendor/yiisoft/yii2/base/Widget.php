@@ -171,10 +171,10 @@ class Widget extends Component implements ViewContextInterface
      * Renders a view.
      * The view to be rendered can be specified in one of the following formats:
      *
-     * - path alias (e.g. "@app/views/site/index");
-     * - absolute path within application (e.g. "//site/index"): the view name starts with double slashes.
+     * - path alias (e.g. "@app/views/member/index");
+     * - absolute path within application (e.g. "//member/index"): the view name starts with double slashes.
      *   The actual view file will be looked for under the [[Application::viewPath|view path]] of the application.
-     * - absolute path within module (e.g. "/site/index"): the view name starts with a single slash.
+     * - absolute path within module (e.g. "/member/index"): the view name starts with a single slash.
      *   The actual view file will be looked for under the [[Module::viewPath|view path]] of the currently
      *   active module.
      * - relative path (e.g. "index"): the actual view file will be looked for under [[viewPath]].

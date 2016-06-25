@@ -196,7 +196,7 @@ abstract class Swift_Transport_AbstractSmtpEventSupportTest extends Swift_Transp
                 ->zeroOrMoreTimes()
                 ->andReturn(array(
                     'mark@swiftmailer.org' => 'Mark',
-                    'chris@site.tld' => 'Chris',
+                    'chris@member.tld' => 'Chris',
                 ));
         $buf->shouldReceive('write')
             ->once()
@@ -250,7 +250,7 @@ abstract class Swift_Transport_AbstractSmtpEventSupportTest extends Swift_Transp
                 ->zeroOrMoreTimes()
                 ->andReturn(array(
                     'mark@swiftmailer.org' => 'Mark',
-                    'chris@site.tld' => 'Chris',
+                    'chris@member.tld' => 'Chris',
                 ));
         $dispatcher->shouldReceive('createSendEvent')
                    ->zeroOrMoreTimes()

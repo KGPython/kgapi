@@ -29,8 +29,8 @@ use yii\base\UserException;
  * }
  * ```
  *
- * Then, create a view file for this action. If the route of your error action is `site/error`, then
- * the view file should be `views/site/error.php`. In this view file, the following variables are available:
+ * Then, create a view file for this action. If the route of your error action is `member/error`, then
+ * the view file should be `views/member/error.php`. In this view file, the following variables are available:
  *
  * - `$name`: the error name
  * - `$message`: the error message
@@ -40,7 +40,7 @@ use yii\base\UserException;
  *
  * ```php
  * 'errorHandler' => [
- *     'errorAction' => 'site/error',
+ *     'errorAction' => 'member/error',
  * ]
  * ```
  *
@@ -52,7 +52,7 @@ class ErrorAction extends Action
     /**
      * @var string the view file to be rendered. If not set, it will take the value of [[id]].
      * That means, if you name the action as "error" in "SiteController", then the view name
-     * would be "error", and the corresponding view file would be "views/site/error.php".
+     * would be "error", and the corresponding view file would be "views/member/error.php".
      */
     public $view;
     /**

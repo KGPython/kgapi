@@ -1,5 +1,5 @@
 /* 初始化菜单 */
-/** 报表中心菜单 **/
+/** 权限 **/
 INSERT INTO `ucenter`.`uc_privilege` VALUES (1,'百货每日数据','/','百货每日数据','','','1','1','0',NOW());
 INSERT INTO `ucenter`.`uc_privilege` VALUES (2,'整体数据','/','整体数据','','1','1','1','0',NOW());
 INSERT INTO `ucenter`.`uc_privilege` VALUES (3,'门店数据','/','门店数据','','1','2','1','0',NOW());
@@ -45,6 +45,15 @@ INSERT INTO `ucenter`.`uc_privilege` VALUES (354,'进货退货','/','进货退�
 
 INSERT INTO `ucenter`.`uc_privilege` VALUES (400,'云商贸每日数据','/','云商贸每日数据','','','1','1','0',NOW());
 INSERT INTO `ucenter`.`uc_privilege` VALUES (401,'门店数据','/','门店数据','','400','1','1','0',NOW());
+
+/** 角色 **/
+INSERT INTO `ucenter`.`uc_role` VALUES (1,'集团高层','1','集团高层','1');
+INSERT INTO `ucenter`.`uc_role` VALUES (2,'超市高管','2','超市高管','1');
+INSERT INTO `ucenter`.`uc_role` VALUES (3,'百货高管','3','百货高管','1');
+INSERT INTO `ucenter`.`uc_role` VALUES (4,'便利店高管','4','便利店高管','1');
+INSERT INTO `ucenter`.`uc_role` VALUES (5,'承批商贸高管','5','承批商贸高管','1');
+INSERT INTO `ucenter`.`uc_role` VALUES (6,'物流高管','6','物流高管','1');
+INSERT INTO `ucenter`.`uc_role` VALUES (7,'云商贸高管','7','云商贸高管','1');
 
 /** 普通客户菜单 **/
 

@@ -133,6 +133,7 @@ class ArticleController extends Controller {
     protected function findModel($id) {
         $model = new Article();
         if ($model->loadArticle($id)) {
+            //return \yii\helpers\Json::encode($model);
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

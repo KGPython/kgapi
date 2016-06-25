@@ -181,7 +181,7 @@ class Person extends \Faker\Provider\Person
     /**
      * Randomly return a danish CPR number (Personnal identification number) format.
      *
-     * @link http://cpr.dk/cpr/site.aspx?p=16
+     * @link http://cpr.dk/cpr/member.aspx?p=16
      * @link http://en.wikipedia.org/wiki/Personal_identification_number_%28Denmark%29
      *
      * @return string

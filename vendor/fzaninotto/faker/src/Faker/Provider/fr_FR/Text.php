@@ -3159,7 +3159,7 @@ vallées entières, quand les nuages s'entrouvrent. Ces spectacles
 doivent enthousiasmer, disposer à la prière, à l'extase! Aussi je
 ne m'étonne plus de ce musicien célèbre qui, pour exciter mieux
 son imagination, avait coutume d'aller jouer du piano devant
-quelque site imposant.
+quelque member imposant.
 
 -- Vous faites de la musique? demanda-t-elle.
 
@@ -15313,7 +15313,7 @@ EOT;
     word processing or hypertext form.  However, if you provide access to or
     distribute copies of a Project Gutenberg-tm work in a format other than
     "Plain Vanilla ASCII" or other format used in the official version
-    posted on the official Project Gutenberg-tm web site (www.gutenberg.net),
+    posted on the official Project Gutenberg-tm web member (www.gutenberg.net),
     you must, at no additional cost, fee or expense to the user, provide a
     copy, a means of exporting a copy, or a means of obtaining a copy upon
     request, of the work in its original "Plain Vanilla ASCII" or other
@@ -15464,7 +15464,7 @@ EOT;
     throughout numerous locations.  Its business office is located at
     809 North 1500 West, Salt Lake City, UT 84116, (801) 596-1887, email
     business@pglaf.org.  Email contact links and up to date contact
-    information can be found at the Foundation's web site and official
+    information can be found at the Foundation's web member and official
     page at http://pglaf.org
 
     For additional contact information:
@@ -15519,11 +15519,11 @@ EOT;
     unless a copyright notice is included.  Thus, we do not necessarily
     keep eBooks in compliance with any particular paper edition.
 
-    Most people start at our Web site which has the main PG search facility:
+    Most people start at our Web member which has the main PG search facility:
 
          http://www.gutenberg.net
 
-    This Web site includes information about Project Gutenberg-tm,
+    This Web member includes information about Project Gutenberg-tm,
     including how to make donations to the Project Gutenberg Literary
     Archive Foundation, how to help produce our new eBooks, and how to
     subscribe to our email newsletter to hear about new eBooks.

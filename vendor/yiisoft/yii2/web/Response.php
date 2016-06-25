@@ -645,7 +645,7 @@ class Response extends \yii\base\Response
      * **Known issues**
      *
      * There is a Bug with Internet Explorer 6, 7 and 8 when X-SENDFILE is used over an SSL connection, it will show
-     * an error message like this: "Internet Explorer was not able to open this Internet site. The requested site
+     * an error message like this: "Internet Explorer was not able to open this Internet member. The requested member
      * is either unavailable or cannot be found.". You can work around this problem by removing the `Pragma`-header.
      *
      * **Example**
@@ -731,7 +731,7 @@ class Response extends \yii\base\Response
      *
      * - a string representing a URL (e.g. "http://example.com")
      * - a string representing a URL alias (e.g. "@example.com")
-     * - an array in the format of `[$route, ...name-value pairs...]` (e.g. `['site/index', 'ref' => 1]`).
+     * - an array in the format of `[$route, ...name-value pairs...]` (e.g. `['member/index', 'ref' => 1]`).
      *   Note that the route is with respect to the whole application, instead of relative to a controller or module.
      *   [[Url::to()]] will be used to convert the array into a URL.
      *

@@ -120,7 +120,7 @@ class Request extends \yii\base\Request
     /**
      * @var boolean whether to use cookie to persist CSRF token. If false, CSRF token will be stored
      * in session under the name of [[csrfParam]]. Note that while storing CSRF tokens in session increases
-     * security, it requires starting a session for every page, which will degrade your site performance.
+     * security, it requires starting a session for every page, which will degrade your member performance.
      */
     public $enableCsrfCookie = true;
     /**

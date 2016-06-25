@@ -81,7 +81,7 @@ class UrlManager extends Component
      *
      * ```php
      * [
-     *     'dashboard' => 'site/index',
+     *     'dashboard' => 'member/index',
      *
      *     'POST <controller:[\w-]+>s' => '<controller>/create',
      *     '<controller:[\w-]+>s' => '<controller>/index',
@@ -283,21 +283,21 @@ class UrlManager extends Component
     /**
      * Creates a URL using the given route and query parameters.
      *
-     * You may specify the route as a string, e.g., `site/index`. You may also use an array
+     * You may specify the route as a string, e.g., `member/index`. You may also use an array
      * if you want to specify additional query parameters for the URL being created. The
      * array format must be:
      *
      * ```php
-     * // generates: /index.php?r=site%2Findex&param1=value1&param2=value2
-     * ['site/index', 'param1' => 'value1', 'param2' => 'value2']
+     * // generates: /index.php?r=member%2Findex&param1=value1&param2=value2
+     * ['member/index', 'param1' => 'value1', 'param2' => 'value2']
      * ```
      *
      * If you want to create a URL with an anchor, you can use the array format with a `#` parameter.
      * For example,
      *
      * ```php
-     * // generates: /index.php?r=site%2Findex&param1=value1#name
-     * ['site/index', 'param1' => 'value1', '#' => 'name']
+     * // generates: /index.php?r=member%2Findex&param1=value1#name
+     * ['member/index', 'param1' => 'value1', '#' => 'name']
      * ```
      *
      * The URL created is a relative one. Use [[createAbsoluteUrl()]] to create an absolute URL.
@@ -305,8 +305,8 @@ class UrlManager extends Component
      * Note that unlike [[\yii\helpers\Url::toRoute()]], this method always treats the given route
      * as an absolute route.
      *
-     * @param string|array $params use a string to represent a route (e.g. `site/index`),
-     * or an array to represent a route with query parameters (e.g. `['site/index', 'param1' => 'value1']`).
+     * @param string|array $params use a string to represent a route (e.g. `member/index`),
+     * or an array to represent a route with query parameters (e.g. `['member/index', 'param1' => 'value1']`).
      * @return string the created URL
      */
     public function createUrl($params)
@@ -380,7 +380,7 @@ class UrlManager extends Component
     /**
      * Get URL from internal cache if exists
      * @param string $cacheKey generated cache key to store data.
-     * @param string $route the route (e.g. `site/index`).
+     * @param string $route the route (e.g. `member/index`).
      * @param array $params rule params.
      * @return boolean|string the created URL
      * @see createUrl()
@@ -420,8 +420,8 @@ class UrlManager extends Component
      * Note that unlike [[\yii\helpers\Url::toRoute()]], this method always treats the given route
      * as an absolute route.
      *
-     * @param string|array $params use a string to represent a route (e.g. `site/index`),
-     * or an array to represent a route with query parameters (e.g. `['site/index', 'param1' => 'value1']`).
+     * @param string|array $params use a string to represent a route (e.g. `member/index`),
+     * or an array to represent a route with query parameters (e.g. `['member/index', 'param1' => 'value1']`).
      * @param string $scheme the scheme to use for the url (either `http` or `https`). If not specified
      * the scheme of the current request will be used.
      * @return string the created URL
