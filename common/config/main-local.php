@@ -22,6 +22,20 @@ return [
             'password' => 'KG20131226#',
             'charset' => 'utf8',
         ],
+        'stock' => [
+            'class' => 'yii\db\Connection',
+            'dsn' =>'sqlsrv:Server=192.168.250.11;Database=mySHOPCMStock',
+            'username' => 'eas',
+            'password' => 'WX201509nn@',
+            'charset' => 'utf8',
+        ],
+        'cpsm' => [
+            'class' => 'yii\db\Connection',
+            'dsn' =>'sqlsrv:Server=192.168.11.17;Database=cpsmzsb',
+            'username' => 'eas',
+            'password' => 'WX201509nn@',
+            'charset' => 'utf8',
+        ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
