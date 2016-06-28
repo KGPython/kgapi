@@ -42,7 +42,8 @@ class MemberController extends Controller
     public function actionLogin($username,$password)
     {
         $session = Yii::$app->session;
-        $session->setId(md5("127.0.0.1"));
+        //设置sessionid
+        $session->setId(md5(md5($username).$password));
         
         $msg = Array();
         //会员账号信息
@@ -68,11 +69,15 @@ class MemberController extends Controller
                 }
                 //查询会员类型
                 $memauxiliary = MemberAuxiliary::find()->where(['member_id'=>$member->uid])->one();
+                //1.会员详细信息
+                $memcontent = Memcontent::find()->where(['uid'=>$member->uid])->one();
 
                 $session->set("privileges",$privilege_ids);
                 $session->set("member",$member);
                 $session->set("memauxiliary",$memauxiliary);
+                $session->set("memcontent",$memcontent);
 
+                $msg['mem_number'] = $memcontent->mem_number;
                 $msg['member_type'] = $memauxiliary->member_type;
                 $msg['member_id'] = $member->uid;
                 $msg['msg']='success';
@@ -85,19 +90,6 @@ class MemberController extends Controller
 
         return Json::encode($msg);
     }
-
-    public function actionChange($membertype){
-
-         if($membertype == 2){
-             //查询员工菜单
-         }else{
-             //1.查询客户菜单
-             //2.查询电子会员卡图片。如果不经存在则生成新会员卡图片。
-             //3.查询会员积分、零钱包
-             //4.查询最新活动通知
-         }
-    }
-
     /**
      * Displays a single Memcontent model.
      * @param integer $id
@@ -126,5 +118,93 @@ class MemberController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+    
+    public function actionCardinfo(){
+        $session = Yii::$app->session;
+        $memcontent = $session->get("memcontent");
+
+        $msg = Array();
+        try {
+            $connection = \Yii::$app->mssql;
+            $connection->open();
+
+            //查询会员积分、零钱包
+            $sql = "select cardno,memberid,cardtype,smallmoney,point from Guest where CardNO='".trim($memcontent->mem_number)."'";
+            $command = $connection->createCommand($sql);
+            $guest = $command->queryOne();
+
+            $msg['smallmoney'] = $guest["smallmoney"];
+            $msg['point'] = $guest["point"];
+            $msg['msg'] = 'success';
+            $connection->close();
+        } catch (Exception $e) {
+            $msg['msg'] = 'failure';
+            //echo 'Caught exception: ',$e->getMessage(),'<br>';
+        }
+        return Json::encode($msg);
+    }
+
+    public function actionLatesthis(){
+        $session = Yii::$app->session;
+        $memcontent = $session->get("memcontent");
+
+        $msg = Array();
+        try {
+            $connection = \Yii::$app->mssql;
+            $connection->open();
+
+            //查询会员最近一笔消费记录
+            $sql = "select shopid,posid,listno,cashierid,gname,amount,unitname,(salevalue-discvalue) as salevalue  
+                    from dbo.CardSaleGoods where cardno='".trim($memcontent->mem_number)."' 
+                    and sdate in (select convert(char(10),lastusedate,120) 
+                    from Guest where cardno='".trim($memcontent->mem_number)."') 
+                    order by ListNo DESC";
+            $command = $connection->createCommand($sql);
+            $goods_list = $command->queryAll();
+
+            $shop_sql = "select shopid,name from shop";
+            $command2 = $connection->createCommand($shop_sql);
+            $shop_list = $command2->queryAll();
+
+            $shop_array = Array();
+            foreach ($shop_list as $shop){
+                $shop_array[trim($shop["shopid"])] = $shop["name"];
+            }
+
+            $data = Array();
+            $tempid = "";
+
+            foreach ($goods_list as $item){
+               $shopid = $item["shopid"];
+
+               if($tempid != $shopid){
+                   $tempData = Array();
+                   $tempData["goods_list"] = Array();
+                   $tempData["posid"] =  $item["posid"];
+                   $tempData["listno"] = $item["listno"];
+                   $tempData["cashierid"] = $item["cashierid"];
+                   $tempData["shopid"] = $shop_array[trim($shopid)];
+                   $tempData["sum"] = 0.0;
+                   $data[$shopid] = $tempData;
+               }
+                $data[$shopid]["sum"] += $item["salevalue"];
+                $data[$shopid]["goods_list"][] = $item;
+
+                $tempid = $shopid;
+            }
+            $result = Array();
+            foreach($data as $key => $value){
+                $result[] = $value;
+            }
+
+            $msg['data'] = $result;
+            $msg['msg'] = 'success';
+            $connection->close();
+        } catch (Exception $e) {
+            $msg['msg'] = 'failure';
+            //echo 'Caught exception: ',$e->getMessage(),'<br>';
+        }
+        return Json::encode($msg);
     }
 }
