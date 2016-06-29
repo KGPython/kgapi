@@ -126,7 +126,7 @@ class MemberController extends Controller
 
         $msg = Array();
         try {
-            $connection = \Yii::$app->mssql;
+            $connection = \Yii::$app->card;
             $connection->open();
 
             //查询会员积分、零钱包
@@ -151,7 +151,7 @@ class MemberController extends Controller
 
         $msg = Array();
         try {
-            $connection = \Yii::$app->mssql;
+            $connection = \Yii::$app->card;
             $connection->open();
 
             //查询会员最近一笔消费记录
