@@ -15,7 +15,7 @@ return [
             'password' => '10233201sn',
             'charset' => 'utf8',
         ],
-        'mssql' => [
+        'card' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'sqlsrv:Server=192.168.250.226;Database=myshopcmcard', 
             'username' => 'eaa',
@@ -27,6 +27,13 @@ return [
             'dsn' =>'sqlsrv:Server=192.168.250.11;Database=mySHOPCMStock',
             'username' => 'eas',
             'password' => 'WX201509nn@',
+            'charset' => 'utf8',
+        ],
+        'park' => [
+            'class' => 'yii\db\Connection',
+            'dsn' =>'sqlsrv:Server=121.26.231.34,9000;Database=kg',
+            'username' => 'sa',
+            'password' => 'S@msung_w0w',
             'charset' => 'utf8',
         ],
         'cpsm' => [
