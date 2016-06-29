@@ -5,13 +5,10 @@ namespace api\controllers;
 use api\models\MemberAuxiliary;
 use api\models\MemberRole;
 use api\models\Members;
-use api\models\Privilege;
 use api\models\RolePrivilege;
 use Yii;
 use api\models\Memcontent;
-use api\models\MemcontentSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 

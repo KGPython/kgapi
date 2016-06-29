@@ -3,7 +3,6 @@
 namespace api\controllers;
 
 use api\models\Privilege;
-use api\models\Memcontent;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Json;
