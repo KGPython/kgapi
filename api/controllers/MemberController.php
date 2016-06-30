@@ -11,6 +11,7 @@ use api\models\Memcontent;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
+use api\utils\MethodUtil;
 
 /**
  * MemberController implements the CRUD actions for Memcontent model.
@@ -195,7 +196,7 @@ class MemberController extends Controller
                 $result[] = $value;
             }
 
-            $msg['data'] = $result;
+            $msg['data'] = MethodUtil::var_encode($result);
             $msg['msg'] = 'success';
             $connection->close();
         } catch (Exception $e) {

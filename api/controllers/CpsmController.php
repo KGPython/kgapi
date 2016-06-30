@@ -10,6 +10,7 @@ namespace api\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Json;
+use api\utils\MethodUtil;
 
 /**
  *
@@ -124,6 +125,8 @@ class CpsmController extends Controller
                     $sum["qty"] += $data["qty"];
                     $sum["costtotal"] += $data["costtotal"];
                 }
+
+                $result = MethodUtil::var_encode($result);
                 $result[] = $sum;
             }
             $msg['data'] = $result;
@@ -132,8 +135,10 @@ class CpsmController extends Controller
         } catch (Exception $e) {
             $msg['msg'] = 'failure';
         }
+
         return Json::encode($msg);
     }
+
     public function actionReturn(){
         $msg = Array();
         $start = date('Y-m-01', strtotime(date("Y-m-d")));
@@ -144,19 +149,24 @@ class CpsmController extends Controller
             $connection->open();
 
             //ptypeid 品牌类型 品牌 库存数量  平均成本 库存金额
-            $sql = "exec p_hh_BuyAndBackStatistic_bak :start,:end";
+            $sql = "exec p_hh_BuyAndBackStatistic_bak '".$start."','".$end."'";
+
             $command = $connection->createCommand($sql);
-            $command->bindParam('start',$start,PDO::PARAM_STR);
-            $command->bindParam('end',$end,PDO::PARAM_STR);
             $data_list = $command->queryAll();
+
             $result = Array();
             $params = Array("00007"=>"代理品牌","00008"=>"直采品牌","00009"=>"自主品牌");
             if(count($data_list)>0){
                 foreach ($data_list as $data){
                     //退货率 = 退货数量/进货入库数量
-                    $data["refundrate"] = strval(round($data["backqty"] * 100.0 / $data["supplyqty"],2))."%";
-                    $data["supplytotal"] = round($data["supplytotal"],2);
-                    $data["backtotal"] = round($data["backtotal"],2);
+                    if($data["SupplyQty"]>0){
+                        $data["refundrate"] = strval(round($data["BackQty"] * 100.0 / $data["SupplyQty"],2))."%";
+                    }else{
+                        $data["refundrate"]="";
+                    }
+
+                    $data["SupplyTotal"] = round($data["SupplyTotal"],2);
+                    $data["BackTotal"] = round($data["BackTotal"],2);
                     $data["ptypeID"] = $params[$data["ptypeID"]];
 
                     $result[] = $data;

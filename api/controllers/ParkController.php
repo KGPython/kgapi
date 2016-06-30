@@ -10,6 +10,7 @@ namespace api\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Json;
+use api\utils\MethodUtil;
 
 /**
  *
@@ -81,7 +82,7 @@ class ParkController extends Controller
             $command = $connection->createCommand($sql);
             $data_list = $command->queryAll();
 
-            $msg['data'] = $data_list;
+            $msg['data'] = MethodUtil::var_encode($data_list);
             $msg['msg'] = 'success';
             $connection->close();
         } catch (Exception $e) {

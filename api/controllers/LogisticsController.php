@@ -10,6 +10,7 @@ namespace api\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Json;
+use api\utils\MethodUtil;
 
 /**
  *
@@ -32,7 +33,7 @@ class LogisticsController extends Controller
             $result = Array();
 
             if(count($data_list)>0){
-                $sum = Array("deptid"=>"合计","qty"=>0.0,"costvalue"=>0.0);
+                $sum = Array("deptid"=>"合计","name"=>"","qty"=>0.0,"costvalue"=>0.0);
                 foreach ($data_list as $data){
                     $sum["qty"] += $data["qty"];
                     $sum["costvalue"] += $data["costvalue"];
@@ -45,7 +46,7 @@ class LogisticsController extends Controller
 
                 $sum["qty"] =  round($sum["qty"],2);
                 $sum["costvalue"] =  round($sum["costvalue"],2);
-
+                $result = MethodUtil::var_encode($result);
                 $result[] = $sum;
             }
             $msg['data'] = $result;
@@ -87,14 +88,14 @@ class LogisticsController extends Controller
             $command = $connection->createCommand($sql);
             $data_list = $command->queryAll();
 
-            $shop_sql = "select id,name from shop where shoptype in (13,11)";
+            $shop_sql = "select id,name from shop where shoptype in (13,11,21)";
             $command = $connection->createCommand($shop_sql);
             $shop_list = $command->queryAll();
             $shop_dict = Array();
             foreach ($shop_list as $shop){
                 $shop_dict[$shop["id"]] = $shop["name"];
             }
-            $shop_dict["C00L"] = "物流";
+            //$shop_dict["C00L"] = "物流";
 
             $result = Array();
             $list = Array();
@@ -123,7 +124,7 @@ class LogisticsController extends Controller
 
                     $list[] = $data;
                 }
-                $result["data_list"] = $list;
+                $result["data_list"] = MethodUtil::var_encode($list);
                 $result["sum"] = $sum;
             }
 
@@ -152,7 +153,7 @@ class LogisticsController extends Controller
             $data_list = $command->queryAll();
             $result = Array();
             if(count($data_list)>0){
-                $sum = Array("sdate"=>"合计","qty"=>0.0,"costvalue"=>0.0,"uncostvalue"=>0.0);
+                $sum = Array("rq"=>"合计","qty"=>0.0,"costvalue"=>0.0,"uncostvalue"=>0.0);
                 foreach ($data_list as $data){
                     $sum["qty"] += $data["qty"];
                     $sum["costvalue"] += $data["costvalue"];
@@ -167,7 +168,7 @@ class LogisticsController extends Controller
                 $sum["qty"] = round($sum["qty"],2);
                 $sum["costvalue"] = round($sum["costvalue"],2);
                 $sum["uncostvalue"] = round($sum["uncostvalue"],2);
-
+                $result = MethodUtil::var_encode($result);
                 $result[] = $sum;
             }
             $msg['data'] = $result;
