@@ -43,10 +43,10 @@ class CpsmController extends Controller
             $sum_row_lastmonth["date"] = substr($start_lastmonth,5,5)."至".substr($end_lastmonth,5,5)."合计";
 
             $result = Array();
-            $result[] = $data_list;
-            $result[] = $sum_row;
-            $result[] = $sum_row_lastmonth;
-            $result[] = $data_list_lastmonth;
+            $result["data_list"] = $data_list;
+            $result["sum_row"] = $sum_row;
+            $result["sum_row_lastmonth"] = $sum_row_lastmonth;
+            $result["data_list_lastmonth"] = $data_list_lastmonth;
 
             $msg['data'] = $result;
             $msg['msg'] = 'success';
@@ -100,7 +100,7 @@ class CpsmController extends Controller
                 $result[] = $item;
             }
         }
-        return $data_list;
+        return $result;
     }
 
     public function actionStock(){
@@ -110,7 +110,7 @@ class CpsmController extends Controller
             $connection->open();
 
             //ptypeid 品牌类型 品牌 库存数量  平均成本 库存金额
-            $sql = "select left(a.ptypeid,5),c.pfullname ,b.pfullname,sum(qty) qty, 
+            $sql = "select left(a.ptypeid,5) ptypeid,c.pfullname ,b.pfullname,sum(qty) qty, 
                     case when sum(qty)=0 then 0 else sum(total)/sum(qty) end as pj, sum(total) costtotal
                     from dbo.GoodsStocks a,ptype b,ptype c where left(a.ptypeid,20)=b.ptypeid and left(a.ptypeid,5)=c.ptypeid 
                     group by b.pfullname,left(a.ptypeid,5),c.pfullname,left(a.ptypeid,15) order by left(a.ptypeid,15)";
@@ -118,13 +118,24 @@ class CpsmController extends Controller
             $command = $connection->createCommand($sql);
             $data_list = $command->queryAll();
             $result = Array();
-            $result[] = $data_list;
+            $params = Array("00007"=>mb_convert_encoding("代理品牌","GBK" ,"UTF-8"),"00008"=>mb_convert_encoding("直采品牌","GBK" ,"UTF-8"),"00009"=>mb_convert_encoding("自主品牌","GBK" ,"UTF-8"));
             if(count($data_list)>0){
-                $sum = Array("pfullname"=>"合计","qty"=>0,"costtotal"=>0.0);
+                $sum = Array("ptypeid"=>"合计","pfullname"=>"","qty"=>0,"pj"=>"","costtotal"=>0.0);
                 foreach ($data_list as $data){
                     $sum["qty"] += $data["qty"];
                     $sum["costtotal"] += $data["costtotal"];
+
+                    $data["ptypeid"] = $params[$data["ptypeid"]];
+
+                    $data["qty"] =  round($data["qty"],2);
+                    $data["pj"] =  round($data["pj"],2);
+                    $data["costtotal"] =  round($data["costtotal"],2);
+
+                    $result[] = $data;
                 }
+
+                $sum["qty"] =  round($sum["qty"],2);
+                $sum["costtotal"] =  round($sum["costtotal"],2);
 
                 $result = MethodUtil::var_encode($result);
                 $result[] = $sum;
@@ -155,7 +166,7 @@ class CpsmController extends Controller
             $data_list = $command->queryAll();
 
             $result = Array();
-            $params = Array("00007"=>"代理品牌","00008"=>"直采品牌","00009"=>"自主品牌");
+            $params = Array("00007"=>mb_convert_encoding("代理品牌","GBK" ,"UTF-8"),"00008"=>mb_convert_encoding("直采品牌","GBK" ,"UTF-8"),"00009"=>mb_convert_encoding("自主品牌","GBK" ,"UTF-8"));
             if(count($data_list)>0){
                 foreach ($data_list as $data){
                     //退货率 = 退货数量/进货入库数量
@@ -167,12 +178,12 @@ class CpsmController extends Controller
 
                     $data["SupplyTotal"] = round($data["SupplyTotal"],2);
                     $data["BackTotal"] = round($data["BackTotal"],2);
-                    $data["ptypeID"] = $params[$data["ptypeID"]];
+                    $data["ptypeID"] = $params[trim($data["ptypeID"])];
 
                     $result[] = $data;
                 }
             }
-            $msg['data'] = $result;
+            $msg['data'] = MethodUtil::var_encode($result);
             $msg['msg'] = 'success';
             $connection->close();
         } catch (Exception $e) {
