@@ -57,6 +57,7 @@ class ParkController extends Controller
                 }
                 $data_list[] = $sum;
                 $total["qty"] = $sum["qty"];
+                $total["growth"] = strval(round(($total["qty"]-$total["lastqty"])*100.0/$total["lastqty"],2))."%";
             }
             $result["data_list"] = $data_list;
             $result["total"] = $total;
@@ -75,14 +76,20 @@ class ParkController extends Controller
             $connection = \Yii::$app->park;
             $connection->open();
 
-            $sql = "select *,a.shichang/60/60 as hh from ( select cph,count(cph) as cishu,sum(datediff(ss,intime,outtime)) as shichang 
+            $sql = "select cph,cishu,shichang from ( select cph,count(cph) as cishu,sum(datediff(ss,intime,outtime)) as shichang 
                     from MYCARGOOUTRECORD where convert(char(10),intime,120) between convert(char(10),getdate()-8,120)	
                     and convert(char(10),getdate()-1,120) group by cph ) a where a.shichang >= 36000 and a.cishu >3 
                     and a.cph not in ( SELECT cph FROM [dbo].[MYFAXINGSSUE] where cardstate <> 5 ) order by cishu desc";
             $command = $connection->createCommand($sql);
             $data_list = $command->queryAll();
-
-            $msg['data'] = MethodUtil::var_encode($data_list);
+            $result = Array();
+            if(count($data_list)>0){
+                foreach($data_list as $row){
+                    $row["shichang"] = round($row["shichang"]/3600,0);
+                    $result[] = $row;
+                }
+            }
+            $msg['data'] = MethodUtil::var_encode($result);
             $msg['msg'] = 'success';
             $connection->close();
         } catch (Exception $e) {
