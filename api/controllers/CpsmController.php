@@ -191,6 +191,66 @@ class CpsmController extends Controller
         }
         return Json::encode($msg);
     }
+
+    public function actionYun(){
+        $msg = Array();
+        $yesterday =date("Y-m-d",strtotime("-1 day"));
+
+        try {
+            $connection = \Yii::$app->stock;
+            $connection->open();
+
+            //ptypeid 品牌类型 品牌 库存数量  平均成本 库存金额
+            $sql = "exec kg_xzq312802 '".$yesterday."'";
+
+            $command = $connection->createCommand($sql);
+            $data_list = $command->queryAll();
+
+            $result = Array();
+            $list = Array();
+            if(count($data_list)>0){
+                $sum = Array("count"=>0,"tradeprice"=>0.0,"tradenumber"=>0,"salevalue"=>0.0,"salegain"=>0.0,"gainrate"=>"");
+                $shops = Array("D007","D010");
+                //id name tradeprice  tradenumber  salevalue salegain  gain
+                foreach ($data_list as $data){
+                    if(in_array($data["id"],$shops)){
+                        if($data["salevalue"]>0){
+                            $data["gainrate"] = strval(round($data["salegain"] * 100.0 / $data["salevalue"],2))."%";
+                        }else{
+                            $data["gainrate"] = "";
+                        }
+                        $sum["tradenumber"] += $data["tradenumber"];
+                        $sum["salevalue"] += $data["salevalue"];
+                        $sum["salegain"] += $data["salegain"];
+                        $sum["count"] += 1;
+
+                        $data["tradeprice"] = round($data["tradeprice"],2);
+                        $data["salevalue"] = round($data["salevalue"],2);
+                        $data["salegain"] = round($data["salegain"],2);
+
+                        $list[] = $data;
+                    }
+                }
+
+                $sum["tradeprice"] = round($sum["salevalue"]/$sum["tradenumber"],2);
+                if($sum["salevalue"]>0){
+                    $sum["gainrate"] = strval(round($sum["salegain"] * 100.0 / $sum["salevalue"],2))."%";
+                }else{
+                    $sum["gainrate"] = "";
+                }
+            }
+
+            $result["data_list"] = $list;
+            $result["sum"] = $sum;
+
+            $msg['data'] = MethodUtil::var_encode($result);
+            $msg['msg'] = 'success';
+            $connection->close();
+        } catch (Exception $e) {
+            $msg['msg'] = 'failure';
+        }
+        return Json::encode($msg);
+    }
 }
 
 ?>
