@@ -20,7 +20,7 @@ class LogisticsController extends Controller
     public function actionGroups(){
         $msg = Array();
         try {
-            $connection = \Yii::$app->stock;
+            $connection = \Yii::$app->logistics;
             $connection->open();
 
             $sql = "select b.deptid/1000000 as deptid,c.name,sum(qty) as qty,sum(costvalue) as costvalue 
@@ -75,7 +75,7 @@ class LogisticsController extends Controller
 
         $msg = Array();
         try {
-            $connection = \Yii::$app->stock;
+            $connection = \Yii::$app->logistics;
             $connection->open();
 
             $sql = "select a.outshopid,a.inshopid,sum(b.qty) as qty,sum(b.qty*b.cost) as costvalue,
@@ -140,7 +140,7 @@ class LogisticsController extends Controller
     public function actionReturn(){
         $msg = Array();
         try {
-            $connection = \Yii::$app->stock;
+            $connection = \Yii::$app->logistics;
             $connection->open();
             //日期 数量 含税金额 未含金额
             $sql = "select convert(char(10),sdate,120) rq,sum(qty) qty,
