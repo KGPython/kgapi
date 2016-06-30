@@ -31,17 +31,17 @@ class CpsmController extends Controller
             $end_lastmonth = date('Y-m-t', strtotime('-1 month'));
 
             //当月
-            $data_list = findSaleData($connection,$start,$end);
+            $data_list = $this->findSaleData($connection,$start,$end);
             //上月
-            $data_list_lastmonth = findSaleData($connection,$start_lastmonth,$end_lastmonth);
+            $data_list_lastmonth =  $this->findSaleData($connection,$start_lastmonth,$end_lastmonth);
 
-            $sum_row = sumData($data_list);
-            $sum_row_lastmonth = sumData($data_list_lastmonth);
+            $sum_row =  $this->sumData($data_list);
+            $sum_row_lastmonth =  $this->sumData($data_list_lastmonth);
 
             $sum_row["date"] = substr($start,5,5)."至".substr($end,5,5)."合计";
             $sum_row_lastmonth["date"] = substr($start_lastmonth,5,5)."至".substr($end_lastmonth,5,5)."合计";
 
-            $result = Arary();
+            $result = Array();
             $result[] = $data_list;
             $result[] = $sum_row;
             $result[] = $sum_row_lastmonth;
