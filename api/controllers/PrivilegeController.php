@@ -20,7 +20,7 @@ class PrivilegeController extends Controller
          }
          $privileges = Privilege::find()
                        ->where(['id'=>$privilege_ids,'pid'=>0,'privilegetype'=>0,'state'=>1])
-                       ->select(['id','name','title','url','pid'])->all();
+                       ->select(['id','name','title','url','pid'])->orderBy('seq asc')->all();
          $result = Array('data'=>$privileges);
 
          return Json::encode($result);
@@ -34,7 +34,7 @@ class PrivilegeController extends Controller
         }
         $privileges = Privilege::find()
             ->where(['id'=>$privilege_ids,'pid'=>$pid,'privilegetype'=>0,'state'=>1])
-            ->select(['id','name','title','url','pid'])->all();
+            ->select(['id','name','title','url','pid'])->orderBy('seq asc')->all();
 
         $menu = Array('data'=>$privileges);
 
