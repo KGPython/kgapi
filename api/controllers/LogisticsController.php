@@ -88,12 +88,19 @@ class LogisticsController extends Controller
             $command = $connection->createCommand($sql);
             $data_list = $command->queryAll();
 
-            $shop_sql = "select id,name from shop where shoptype in (13,11,21)";
+            $shop_sql = "select id,name,shoptype from shop where shoptype in (13,11,21)";
             $command = $connection->createCommand($shop_sql);
             $shop_list = $command->queryAll();
             $shop_dict = Array();
             foreach ($shop_list as $shop){
-                $shop_dict[$shop["id"]] = $shop["name"];
+                if($shop["shoptype"]==13){
+                    $shop_dict[$shop["id"]] = $shop["id"];
+                }elseif($shop["shoptype"]==21){
+                    $shop_dict[$shop["id"]] = mb_convert_encoding("物流","GBK" ,"UTF-8");
+                }else{
+                    $shop_dict[$shop["id"]] =  str_replace(mb_convert_encoding('宽广超市',"GBK" ,"UTF-8"),"",$shop["name"]);;
+                }
+
             }
             //$shop_dict["C00L"] = "物流";
 
@@ -124,6 +131,14 @@ class LogisticsController extends Controller
 
                     $list[] = $data;
                 }
+
+                $sum["insum"] = round($sum["insum"],2);
+                $sum["insum2"] = round($sum["insum2"],2);
+                $sum["outsum"] = round($sum["outsum"],2);
+                $sum["outsum2"] = round($sum["outsum2"],2);
+                $sum["totalsum"] = round($sum["totalsum"],2);
+                $sum["totalsum2"] = round($sum["totalsum2"],2);
+
                 $result["data_list"] = MethodUtil::var_encode($list);
                 $result["sum"] = $sum;
             }
