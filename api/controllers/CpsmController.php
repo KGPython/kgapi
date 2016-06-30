@@ -209,7 +209,7 @@ class CpsmController extends Controller
             $result = Array();
             $list = Array();
             if(count($data_list)>0){
-                $sum = Array("count"=>0,"tradeprice"=>0.0,"tradenumber"=>0,"salevalue"=>0.0,"salegain"=>0.0,"gainrate"=>"");
+                $sum = Array("count"=>0,"tradeprice"=>0.0,"tradenumber"=>0,"salevalue"=>0.0,"salegain"=>0.0,"gainrate"=>"","title"=>"");
                 $shops = Array("D007","D010");
                 //id name tradeprice  tradenumber  salevalue salegain  gain
                 foreach ($data_list as $data){
@@ -238,12 +238,15 @@ class CpsmController extends Controller
                 }else{
                     $sum["gainrate"] = "";
                 }
+
+                $date =date("Y年m月d日",strtotime("-1 day"));
+                $sum["title"] = $date."数据";
             }
 
-            $result["data_list"] = $list;
+            $result["data_list"] =  MethodUtil::var_encode($list);
             $result["sum"] = $sum;
 
-            $msg['data'] = MethodUtil::var_encode($result);
+            $msg['data'] =$result;
             $msg['msg'] = 'success';
             $connection->close();
         } catch (Exception $e) {
