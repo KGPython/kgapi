@@ -205,4 +205,28 @@ class MemberController extends Controller
         }
         return Json::encode($msg);
     }
+
+    public function actionRegister(){
+        $user = new Members();
+        $phone=Yii::$app->request->post(['phone']);
+        $passWord=md5(md5(Yii::$app->request->post(['passWord']))+'kghy');
+        $user->username=$phone;
+        $user->password=$passWord;
+        $user->salt='kghy';
+        $user->regdate = time();
+        if($user->save()>0){
+            $uid = Members::find()->where(['username'=>Yii::$app->request->post(['phone'])]);
+            $memberContent = new Memcontent();
+            $memberContent->uid = $uid;
+            $memberContent->idc_name = Yii::$app->request->post(['userName']);
+
+            if($memberContent->save() > 0){
+                $res['msg']='success';
+            }else{
+                $res['msg']='注册失败，请稍后重试';
+            }
+            $data['data']=$res;
+            echo json_encode($data);
+        }
+    }
 }
