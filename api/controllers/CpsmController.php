@@ -6,7 +6,6 @@
  * Time: 17:11
  */
 namespace api\controllers;
-
 use Yii;
 use yii\web\Controller;
 use yii\helpers\Json;
