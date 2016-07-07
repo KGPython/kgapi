@@ -69,14 +69,7 @@ return [
             'dsn' =>'dblib:host=192.168.250.11;dbname=mySHOPCMStock',
             'username' => 'eas',
             'password' => 'WX201509nn@',
-            'charset' => 'utf8',
-        ],
-        'stock2' => [
-            'class' => 'yii\db\Connection',
-            'dsn' =>'dblib:host=192.168.250.11;dbname=mySHOPCMStock',
-            'username' => 'eaa',
-            'password' => 'K2014G0720',
-            'charset' => 'utf8',
+            'charset' => 'GBK',
         ],
         'park' => [
             'class' => 'yii\db\Connection',
@@ -106,13 +99,6 @@ return [
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
             'useFileTransport' => true,
-        ],
-        'market' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=218.11.132.34;dbname=kgResearch',
-            'username' => 'root',
-            'password' => '10233201sn',
-            'charset' => 'utf8',
         ],
     ],
 ];

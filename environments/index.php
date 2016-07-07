@@ -37,6 +37,7 @@ return [
             'api/models',
             'api/views',
             'api/controllers',
+            'api/utils',
             'backend/runtime',
             'backend/web/assets',
             'backend/models',
