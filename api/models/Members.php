@@ -36,7 +36,8 @@ class Members extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'email', 'myid', 'myidkey', 'regip', 'salt', 'secques'], 'required'],
+//            [['username', 'password', 'email', 'myid', 'myidkey', 'regip', 'salt', 'secques'], 'required'],
+            [['username', 'password'], 'required','on'=>'register'],
             [['regdate', 'lastloginip', 'lastlogintime'], 'integer'],
             [['username', 'regip'], 'string', 'max' => 15],
             [['password', 'email'], 'string', 'max' => 32],

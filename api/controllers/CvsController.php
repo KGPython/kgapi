@@ -97,4 +97,8 @@ class CvsController extends Controller
         $arr = array('data'=>$res);
         echo json_encode($arr,true);
     }
+
+    public function actionTest(){
+        return $this->render('test');
+    }
 }

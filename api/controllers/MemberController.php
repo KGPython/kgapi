@@ -208,25 +208,31 @@ class MemberController extends Controller
 
     public function actionRegister(){
         $user = new Members();
-        $phone=Yii::$app->request->post(['phone']);
-        $passWord=md5(md5(Yii::$app->request->post(['passWord']))+'kghy');
+        $user->scenario = 'register';
+        $phone=Yii::$app->request->get('phone');
+        $passWord=md5(md5(Yii::$app->request->get('passWord')).'kghy');
         $user->username=$phone;
         $user->password=$passWord;
         $user->salt='kghy';
         $user->regdate = time();
-        if($user->save()>0){
-            $uid = Members::find()->where(['username'=>Yii::$app->request->post(['phone'])]);
+        $res = array();
+        if($user->save()){
+            $uid = Members::find()->where(['username'=>Yii::$app->request->get('phone')])->one()['uid'];
             $memberContent = new Memcontent();
             $memberContent->uid = $uid;
-            $memberContent->idc_name = Yii::$app->request->post(['userName']);
-
-            if($memberContent->save() > 0){
+            $memberContent->idc_name = Yii::$app->request->get('userName');
+            if($memberContent->save()){
                 $res['msg']='success';
             }else{
                 $res['msg']='注册失败，请稍后重试';
             }
-            $data['data']=$res;
-            echo json_encode($data);
+        }else{
+            $errs = $user->getErrors();
+            foreach($errs as $k=>$v){
+                $res['msg'][]= $v[0];
+            }
         }
+        $data['data']=$res;
+        echo json_encode($data);
     }
 }
