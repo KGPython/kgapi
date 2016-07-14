@@ -21,7 +21,6 @@ class CvsController extends Controller
         $arr = array('data'=>$res);
         echo json_encode($arr);
     }
-
     public function actionShopDay(){
         $conn = \Yii::$app->stock;
         $conn->open();
