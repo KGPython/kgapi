@@ -6,6 +6,7 @@ use yii\bootstrap\ActiveForm;
 
 
 BootstrapAsset::register($this);
+AppAsset::register($this);
 $appAsset = new AppAsset();
 $bootstrapAsset = new BootstrapAsset();
 ?>

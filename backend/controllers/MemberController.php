@@ -74,7 +74,7 @@ class MemberController extends Controller
             return $this->goHome();
         }
 
-        $model = $_REQUEST['LoginForm'];
+        $model = new LoginForm();
         if($model->verifyCode){
 
             $caprcha = new CaptchaValidator();
@@ -90,6 +90,7 @@ class MemberController extends Controller
         else {
             return $this->renderPartial('login', [ 'model' => $model, ]);
         }
+        return $this->renderPartial('login');
     }
 
     public function actionLogout()
