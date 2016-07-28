@@ -5,6 +5,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\LoginForm;
+use common\models\User;
 use yii\filters\VerbFilter;
 use yii\captcha\CaptchaValidator;
 
@@ -74,15 +75,18 @@ class MemberController extends Controller
             return $this->goHome();
         }
 
+
+        $username = isset($_REQUEST["username"])?$_REQUEST["username"]:"";
+        $password = isset($_REQUEST["password"])?$_REQUEST["password"]:"";
+        $verifyCode = isset($_REQUEST["verifyCode"])?$_REQUEST["verifyCode"]:"";
+
         $model = new LoginForm();
-        if($model->verifyCode){
+        if($verifyCode){
 
             $caprcha = new CaptchaValidator();
-
-            $flag = $caprcha->validate($model->verifyCode);
-
-            if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                return $this->goBack();
+            $flag = $caprcha->validate($verifyCode);
+            if ($flag && $this->login($username,$password)) {
+                return $this->goHome();
             } else {
                 return $this->renderPartial('login', [ 'model' => $model, ]);
             }
@@ -91,6 +95,15 @@ class MemberController extends Controller
             return $this->renderPartial('login', [ 'model' => $model, ]);
         }
         return $this->renderPartial('login');
+    }
+
+    function login($username,$password){
+        $user = User::findByUsername($username);
+        if($user){
+            return True;
+        }else{
+            return False;
+        }
     }
 
     public function actionLogout()

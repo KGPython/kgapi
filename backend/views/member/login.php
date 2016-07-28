@@ -32,7 +32,7 @@ $bootstrapAsset = new BootstrapAsset();
         <img src="<?=$bootstrapAsset->baseUrl;?>/images/erp_login.png" alt="logo">
     </div>
     <div class="loginform"  id="loginbox">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(["action"=>["member/login"],"method"=>"post"]); ?>
             <div class="form-group icons-lg">
                 <span class="icons-user"></span>
                 <?= Html::input('text','username', '', ['class' => 'form-control', 'id' => 'username', 'placeholder'=>'请输入账号', 'required'=>'required']) ?>
@@ -45,7 +45,7 @@ $bootstrapAsset = new BootstrapAsset();
                 <div class="col-xs-6" style="width:100%;">
                     <?=$form->field($model, 'verifyCode')->label(false)->widget(yii\captcha\Captcha::className(), [
                         'captchaAction'=>"member/captcha",
-                        'template' => '<label style="width: 50%;">{input}</label><label style="width:40%;margin-left:10px;">{image}</label>',
+                        'template' => '<label style="width: 50%;"><input type="text" class="form-control" name="verifyCode" placeholder="验证码" ></label><label style="width:40%;margin-left:10px;">{image}</label>',
                         'imageOptions'=>['alt'=>'点击换图','title'=>'点击换图', 'style'=>'cursor:pointer'],
                         'options'=>['placeholder'=>'验证码','class'=>'form-control','required'=>'required']
                     ]) ?>
