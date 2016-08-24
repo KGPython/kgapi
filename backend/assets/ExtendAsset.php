@@ -13,21 +13,20 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class BootstrapAsset extends AssetBundle
+class ExtendAsset extends AssetBundle
 {
     public $basePath = '@webroot';
-    public $baseUrl = '@web/admin';
+    public $baseUrl = '@web';
     public $css = [
-        'css/bootstrap.min.css',
-        'css/indlog.css',
+        'css/matrix-media.css',
+        'css/matrix-style.css',
+        'css/backend.css',
     ];
     public $js = [
-        'js/jquery.min.js',
+        'js/matrix.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
-        //'yii\bootstrap\BootstrapAsset',
+        'backend\assets\BaseAsset',
     ];
-
 }
 ?>

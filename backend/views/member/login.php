@@ -1,14 +1,16 @@
 <?php
 use yii\helpers\Html;
-use backend\assets\AppAsset;
-use backend\assets\BootstrapAsset;
+
+use backend\assets\BaseAsset;
+use backend\assets\HackAsset;
+use backend\assets\LoginAsset;
 use yii\bootstrap\ActiveForm;
 
+BaseAsset::register($this);
+HackAsset::register($this);
+LoginAsset::register($this);
 
-BootstrapAsset::register($this);
-AppAsset::register($this);
-$appAsset = new AppAsset();
-$bootstrapAsset = new BootstrapAsset();
+$rootMy = new BaseAsset();
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -18,42 +20,47 @@ $bootstrapAsset = new BootstrapAsset();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode('登录中心_ERP后台管理系统') ?></title>
-    <link rel="icon" href="<?=$appAsset->baseUrl;?>/favicon.ico" type="image/gif" />
-    <!--[if lt IE 9]>
-    <script src="<?=$bootstrapAsset->baseUrl;?>/js/html5shiv.js"></script>
-    <script src="<?=$bootstrapAsset->baseUrl;?>/js/respond.min.js"></script>
-    <![endif]-->
+    <link rel="icon" href="<?=$rootMy->baseUrl;?>/favicon.ico" type="image/gif" />
+    <style>
+        .help-block{
+            position: absolute;
+            right: -120px;
+            top: 0px;
+        }
+        #loginform-verifycode-image{margin-left: 10px;}
+    </style>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
 <div class="container">
     <div id="logo">
-        <img src="<?=$bootstrapAsset->baseUrl;?>/images/erp_login.png" alt="logo">
+        <img src="<?=$rootMy->baseUrl;?>/images/erp_login.png" alt="logo">
     </div>
     <div class="loginform"  id="loginbox">
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin([
+            "action"=>["member/login"],
+            "method"=>"post"
+        ]); ?>
             <div class="form-group icons-lg">
                 <span class="icons-user"></span>
-                <?= Html::input('text','username', '', ['class' => 'form-control', 'id' => 'username', 'placeholder'=>'请输入账号', 'required'=>'required']) ?>
+                <?=$form->field($model,'username')->textInput(['class' => 'form-control', 'id' => 'username', 'placeholder'=>'请输入账号', 'required'=>'required'])->label(false)?>
             </div>
             <div class="form-group icons-lg">
                 <span class="icons-psd"></span>
-                <?= Html::input('password','password', '', ['class' => 'form-control', 'id' => 'password', 'placeholder'=>'请输入密码', 'required'=>'required']) ?>
+                <?=$form->field($model,'password')->textInput(['class' => 'form-control', 'id' => 'password', 'placeholder'=>'请输入密码', 'required'=>'required'])->label(false)?>
             </div>
             <div class="form-group icons-lg" >
-                <div class="col-xs-6" style="width:100%;">
-                    <?=$form->field($model, 'verifyCode')->label(false)->widget(yii\captcha\Captcha::className(), [
-                        'captchaAction'=>"member/captcha",
-                        'template' => '<label style="width: 50%;">{input}</label><label style="width:40%;margin-left:10px;">{image}</label>',
-                        'imageOptions'=>['alt'=>'点击换图','title'=>'点击换图', 'style'=>'cursor:pointer'],
-                        'options'=>['placeholder'=>'验证码','class'=>'form-control','required'=>'required']
-                    ]) ?>
-                </div>
+
+                <?=$form->field($model, 'verifyCode')->label(false)->widget(yii\captcha\Captcha::className(), [
+                    'captchaAction'=>"member/captcha",
+                    'template' => '<div class="col-xs-6">{input}</div><div  class="col-xs-6">{image}</div>',
+                    'imageOptions'=>['alt'=>'点击换图','title'=>'点击换图', 'style'=>'cursor:pointer'],
+                    'options'=>['placeholder'=>'验证码','class'=>'form-control','required'=>'required']
+                ]) ?>
             </div>
             <div class="form-group" >
-                <?= Html::submitButton('登录', ['class' => 'btn btn-default col-lg-3', 'name' => 'login-button']) ?>
-                <?= Html::resetButton('重置', ['class' => 'btn btn-default col-sm-offset-1 col-lg-3', 'name' => 'reset-button']) ?>
+                <?= Html::submitButton('登录', ['class' => 'btn btn-success bg_lg', 'name' => 'login-button','type'=>'submit']) ?>
             </div>
         <?php ActiveForm::end(); ?>
     </div>

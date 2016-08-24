@@ -6,7 +6,7 @@
  */
 namespace console\controllers;
 
-use common\models\User;
+use backend\models\User;
 
 class InitController extends \yii\console\Controller
 {

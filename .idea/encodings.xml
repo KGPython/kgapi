@@ -4,6 +4,6 @@
     <file url="file://$PROJECT_DIR$/api/models/Memcontent.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/models/MemcontentQuery.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api/views/layouts/main.php" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/api/views/member/index.php" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

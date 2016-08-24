@@ -5,7 +5,7 @@ use yii\db\Migration;
 
 class m130524_201442_init extends Migration
 {
-    const TBL_NAME = '{{%user}}';
+    const TBL_NAME = '{{%wap_admin_user}}';
     public function safeUp()
     {
         $tableOptions = null;
@@ -27,7 +27,6 @@ class m130524_201442_init extends Migration
             'created_at' => Schema::TYPE_INTEGER . ' NOT NULL',
             'updated_at' => Schema::TYPE_INTEGER . ' NOT NULL',
         ], $tableOptions);
-        
         $this->createIndex('username', self::TBL_NAME, ['username'],true);
         $this->createIndex('email', self::TBL_NAME, ['email'],true);
     }

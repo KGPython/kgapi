@@ -1,10 +1,12 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\RoleNav;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use common\models\LoginForm;
+use backend\models\LoginForm;
+use backend\models\User;
 use yii\filters\VerbFilter;
 use yii\captcha\CaptchaValidator;
 
@@ -21,7 +23,7 @@ class MemberController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup','login'],
+                'only' => ['logout', 'signup','login','index'],
                 'rules' => [
                     [
                         'actions' => ['login', 'error'],
@@ -42,7 +44,7 @@ class MemberController extends Controller
             ],
         ];
     }
-
+//    public $defaultAction = 'login';
     /**
      * @inheritdoc
      */
@@ -51,11 +53,12 @@ class MemberController extends Controller
         return [
             'captcha' =>  [
                 'class' => 'yii\captcha\CaptchaAction',
-                'backColor'=>0xf491f4,
+                'backColor'=>0x000000,
                 'padding'=>2,
                 'height'=>35,
+                'width'=>150,
                 'maxLength'=>4,
-                "offset"=>2,
+                "offset"=>8,
             ],
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -75,28 +78,44 @@ class MemberController extends Controller
         }
 
         $model = new LoginForm();
-        if($model->verifyCode){
 
-            $caprcha = new CaptchaValidator();
+        if($model->load(Yii::$app->request->post())){
+            if($model->verifyCode){
+                $caprcha = new CaptchaValidator();
+                $flag = $caprcha->validate($model->verifyCode);
+                if($flag && $model->login()){
+                    $user = User::find()->where(['username' => $model->username])->one();
+                    $conn = Yii::$app->db;
+                    $findNavs = 'select a.* from wap_amdin_nav as a INNER JOIN  wap_admin_role_nav as b ON a.nav_id = b.nav where role='.$user->role;
+                    $comm = $conn->createCommand($findNavs);
+                    $navs = $comm->queryAll();
 
-            $flag = $caprcha->validate($model->verifyCode);
+                    $session = Yii::$app->session;
+                    $session['navs']=$navs;
 
-            if ($model->load(Yii::$app->request->post()) && $model->login()) {
-                return $this->goBack();
-            } else {
-                return $this->renderPartial('login', [ 'model' => $model, ]);
+//                    $roleList = RoleNav::find()->where(['role'=> $user->role])->innerJoinWith('nav)->all();
+
+                    return $this->goHome();
+                }
             }
-        }
-        else {
+        }else {
             return $this->renderPartial('login', [ 'model' => $model, ]);
         }
-        return $this->renderPartial('login');
+    }
+
+    function login($username,$password){
+        $user = User::findByUsername($username);
+        if($user){
+            return True;
+        }else{
+            return False;
+        }
     }
 
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
     }
+
 }

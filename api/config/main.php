@@ -37,15 +37,14 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'member/error',
+            'errorAction' => 'user/error',
         ],
-//        'urlManager' => [
-//            'enablePrettyUrl' => true,
-//            'showScriptName' => false,
-//            'rules' => [
-//                ['class' => 'yii\rest\UrlRule', 'controller' => ['section','comment','user']],
-//            ],
-//        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+            ],
+        ],
 
     ],
     'params' => $params,
