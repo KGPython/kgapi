@@ -15,7 +15,8 @@ class CardController extends Controller
         $sql = "select cardno,detail from guest where cardno='".$cardno."' and secrety='".$secrety."' ";
         $comm = $conn->createCommand($sql);
         $res = $comm->queryOne();
-        var_dump($res);
+        $conn->close();
+        echo json_encode($res);
     }
 
 }
