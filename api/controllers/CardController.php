@@ -1,14 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: admin
+ * User: chen
  * Date: 2016/8/24
  * Time: 9:35
  */
-
 namespace api\controllers;
 use yii\web\Controller;
-
 class CardController extends Controller
 {
     public function actionBalance($cardno,$secrety){
