@@ -33,15 +33,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'member/error',
         ],
-//        'urlManager' => [
+        'urlManager' => [
 //            'class' => 'yii\web\UrlManager',
-//            'enablePrettyUrl' => true,
-//            'enableStrictParsing' => false,
-//            'showScriptName' => false,
-//            'rules' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
 //                ['class' => 'yii\rest\UrlRule', 'controller' => ['section','comment','user','member']],
-//            ],
-//        ],
+            ],
+        ],
 
     ],
     'params' => $params,

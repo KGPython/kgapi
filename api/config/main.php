@@ -37,12 +37,13 @@ return [
             ],
         ],
         'errorHandler' => [
-            'errorAction' => 'user/error',
+            'errorAction' => 'member/error',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
             ],
         ],
 

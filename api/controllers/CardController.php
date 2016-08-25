@@ -9,7 +9,9 @@ namespace api\controllers;
 use yii\web\Controller;
 class CardController extends Controller
 {
-    public function actionBalance($cardno,$secrety){
+    public function actionBalance(){
+        $cardno = \Yii::$app->request->get('cardno');
+        $secrety = \Yii::$app->request->get('secrety');
         $conn = \Yii::$app->card;
         $conn->open();
         $sql = "select cardno,detail from guest where cardno='".$cardno."' and secrety='".$secrety."' ";
@@ -18,5 +20,4 @@ class CardController extends Controller
         $conn->close();
         echo json_encode($res);
     }
-
 }
