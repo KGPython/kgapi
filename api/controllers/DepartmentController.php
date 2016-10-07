@@ -68,8 +68,10 @@ class DepartmentController extends Controller
             $total['ysalegain'] += $row['ysalegain'];
             $total['maol'] += $row['maol'];
         }
-        $total['dcc'] = $total['maol']/$total['ysalegain'];
-        $total['lv'] = $total['maol']/$total['salevalue'];
+
+        $total['dc'] = ($total['salevalue']/$total['ysalevalue'])*100;
+        $total['dcc'] = ($total['maol']/$total['ysalegain'])*100;
+        $total['lv'] = ($total['maol']/$total['salevalue'])*100;
         $res[]=$total;
         for($i=0;$i<count($res)-1;$i++){
             $res[$i]['zhanbi']=$res[$i]['salevalue']/$res[count($res)-1]['salevalue']*100;

@@ -76,9 +76,7 @@ class MemberController extends Controller
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
-
         if($model->load(Yii::$app->request->post())){
             if($model->verifyCode){
                 $caprcha = new CaptchaValidator();
@@ -92,9 +90,6 @@ class MemberController extends Controller
 
                     $session = Yii::$app->session;
                     $session['navs']=$navs;
-
-//                    $roleList = RoleNav::find()->where(['role'=> $user->role])->innerJoinWith('nav)->all();
-
                     return $this->goHome();
                 }
             }

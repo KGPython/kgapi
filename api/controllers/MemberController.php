@@ -70,7 +70,7 @@ class MemberController extends Controller
                 //1.会员详细信息
                 $memcontent = Memcontent::find()->where(['uid'=>$member->uid])->one();
 
-                $session->set("privileges",$privilege_ids);
+                $session->set("privileges",$privilege_ids);//有问题。会丢失
                 $session->set("member",$member);
                 $session->set("memauxiliary",$memauxiliary);
                 $session->set("memcontent",$memcontent);

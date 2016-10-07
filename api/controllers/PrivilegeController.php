@@ -10,9 +10,9 @@ use yii\helpers\Json;
 /**
  * PrivilegeController implements the CRUD actions for Privilege model.
  */
-class PrivilegeController extends Controller
+class PrivilegeController extends BaseController
 {
-     public function actionMenu($member_id,$member_type){
+     public function actionMenu(){
          $session = Yii::$app->session;
          $privilege_ids = $session->get("privileges");
          if(!$privilege_ids){
@@ -26,7 +26,7 @@ class PrivilegeController extends Controller
          return Json::encode($result);
      }
 
-    public function actionSubmenu($pid,$member_id,$member_type){
+    public function actionSubmenu($pid){
         $session = Yii::$app->session;
         $privilege_ids = $session->get("privileges");
         if(!$privilege_ids){

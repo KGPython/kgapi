@@ -34,9 +34,10 @@ return [
             'errorAction' => 'member/error',
         ],
         'urlManager' => [
-//            'class' => 'yii\web\UrlManager',
+            'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enableStrictParsing' => false,
+//            'showScriptName' => false,
             'rules' => [
 //                ['class' => 'yii\rest\UrlRule', 'controller' => ['section','comment','user','member']],
             ],
